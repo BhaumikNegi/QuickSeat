@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Exam Seating Arrangement</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <script>
+    setTimeout(function () {
+        document.getElementById("splash-screen").style.display = "none";
+        document.querySelector(".container").style.display = "block";
+    }, 4000); // 4 seconds
+    </script>
+</head>
+<body>
+
+    <div id="splash-screen">
+        <h1 class="splash-text">Welcome to QuickSeat</h1>
+    </div>
+
+    <div class="container" id="main-content" style="display: none;">
+        <h1>SMART EXAM SEATING ARRANGEMENT</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>University Name:</label>
+                <input type="text" name="univ_name" required>
+            </div>
+            <div class="form-group">
+                <label>Number of LTs:</label>
+                <input type="number" name="lt_count" required>
+            </div>
+            <div class="form-group">
+                <label>Rows in LT:</label>
+                <input type="number" name="lt_rows" required>
+            </div>
+            <div class="form-group">
+                <label>Columns in LT:</label>
+                <input type="number" name="lt_cols" required>
+            </div>
+            <div class="form-group">
+                <label>Number of CRs:</label>
+                <input type="number" name="cr_count" required>
+            </div>
+            <div class="form-group">
+                <label>Rows in CR:</label>
+                <input type="number" name="cr_rows" required>
+            </div>
+            <div class="form-group">
+                <label>Columns in CR:</label>
+                <input type="number" name="cr_cols" required>
+            </div>
+            <div class="form-group">
+                <label>Date of Exam:</label>
+                <input type="date" name="exam_date" required>
+            </div>
+            <div class="form-group">
+                <label>Exam Subject:</label>
+                <input type="text" name="exam_subject" required>
+            </div>
+
+            <div class="form-group">
+                <label for="examType">Exam Type:</label>
+                <select id="examType" name="examType" onchange="updateShiftAndTiming()" required>
+                    <option value="">--Select Exam Type--</option>
+                    <option value="Mid Term">Mid Term</option>
+                    <option value="End Term">End Term</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="shift">Shift:</label>
+                <select id="shift" name="shift" required>
+                    <option value="">--Select Shift--</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="duration">Duration:</label>
+                <input type="text" id="duration" name="duration" readonly required>
+            </div>
+            
+
+            <div class="form-group">
+                <label>Upload Student Excel File:</label>
+                <input type="file" name="file" accept=".xlsx" required>
+            </div>
+
+            <button type="submit">Generate PDF</button>
+        </form>
+    </div>
+
+<script>
+    // Declare globally so it's accessible in both functions
+    let shiftDurationMap = {};
+
+    function updateShiftAndTiming() {
+        const examType = document.getElementById('examType').value;
+        const shift = document.getElementById('shift');
+        const duration = document.getElementById('duration');
+
+        // Reset shift and duration
+        shift.innerHTML = '<option value="">--Select Shift--</option>';
+        duration.value = '';
+
+        let shiftOptions = [];
+
+        if (examType === 'Mid Term') {
+            shiftOptions = ['Morning', 'Afternoon', 'Evening'];
+            shiftDurationMap = {
+                'Morning': '8:00 - 9:30',
+                'Afternoon': '10:00 - 11:30',
+                'Evening': '12:00 - 1:30'
+            };
+        } else if (examType === 'End Term') {
+            shiftOptions = ['Morning', 'Afternoon'];
+            shiftDurationMap = {
+                'Morning': '9:00 - 12:00',
+                'Afternoon': '1:00 - 4:00'
+            };
+        } else {
+            shiftDurationMap = {};
+        }
+
+        shiftOptions.forEach(function(opt) {
+            const option = document.createElement('option');
+            option.value = opt;
+            option.text = opt;
+            shift.appendChild(option);
+        });
+    }
+
+    // Attach listener to update duration when shift is selected
+    window.onload = function () {
+        document.getElementById('shift').addEventListener('change', function () {
+            const selectedShift = this.value;
+            const duration = document.getElementById('duration');
+            duration.value = shiftDurationMap[selectedShift] || '';
+        });
+    };
+</script>
+
+</body>
+</html>

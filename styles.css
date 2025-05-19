@@ -1,0 +1,142 @@
+/*For Body*/
+body {
+    font-family: 'Roboto', sans-serif;
+    background: url('back.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+
+/*For inside box*/
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #e0e0e0; /* Light grey background */
+    color: #000; /* Set text color to white */
+    border-radius: 10px;
+    border: 4px solid black;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #000; /* Ensure heading is also white */
+    text-decoration: underline;
+    font-size: 42px; /* Increased font size */
+    
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #000; /* Make labels white */
+}
+
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    color: #000;
+    background-color: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="file"]:focus {
+    border-color: #4CAF50; /* Green border on focus */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Light green glow effect */
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: #000;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+/* Splash screen with background image */
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('first.jpg') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeOutSplash 8s forwards;
+    overflow: hidden;
+}
+
+/* Dark overlay on top of image */
+#splash-screen::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Adjust opacity as needed */
+    z-index: 1;
+}
+
+/* Welcome text styling */
+.splash-text {
+    position: relative;
+    z-index: 2; /* Must be above overlay */
+    
+    font-size: 70px;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    border-right: 3px solid rgba(255, 255, 255, 0.75);
+    animation: typing 4s steps(30, end) forwards, blink-caret 0.75s step-end infinite;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+    text-decoration: none;
+}
+
+/* Typing animation */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* Blinking cursor effect */
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: rgba(255, 255, 255, 0.75); }
+}
+
+/* Fade out the splash screen */
+@keyframes fadeOutSplash {
+    0% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; }
+}
